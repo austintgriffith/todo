@@ -7,7 +7,6 @@ module.exports =  React.createClass({
         return {newtodo:""}
     },
 
-
     //----------------------------------------------------- input change
     handleChange: function(event){
         this.setState({newtodo:event.target.value});
@@ -40,7 +39,7 @@ module.exports =  React.createClass({
         return (
             <div style={divStyle}>
                 todo <input style={inputStyle} type='text' value={this.state.newtodo} onKeyUp={this.handleKeyUp} onChange={this.handleChange}></input>
-        </div>
-    )
-}
+            </div>
+        )
+    }
 });

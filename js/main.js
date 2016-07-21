@@ -16,7 +16,7 @@ var Main = React.createClass({
         }.bind(this));
     },
 
-    //----------------------------------------------------- send todo
+    //-----------------------------------------------------
     sendTodo: function(todo){
         console.log("Send todo to backend:"+todo);
         $.get("/add/"+encodeURIComponent(todo), function (result) {
@@ -26,10 +26,51 @@ var Main = React.createClass({
         }.bind(this));
     },
 
-    //----------------------------------------------------- send todo
+    //-----------------------------------------------------
     handleRemove: function(event){
         var todoId = event.target.getAttribute('name');
         $.get("/remove/"+todoId, function (result) {
+            this.setState({
+                todos: JSON.parse(result)
+            });
+        }.bind(this));
+    },
+
+    //-----------------------------------------------------
+    handleUnRemove: function(event){
+        var todoId = event.target.getAttribute('name');
+        $.get("/unremove/"+todoId, function (result) {
+            this.setState({
+                todos: JSON.parse(result)
+            });
+        }.bind(this));
+    },
+
+    //-----------------------------------------------------
+    handleRealRemove: function(event){
+        var todoId = event.target.getAttribute('name');
+        $.get("/realremove/"+todoId, function (result) {
+            this.setState({
+                todos: JSON.parse(result)
+            });
+        }.bind(this));
+    },
+
+
+    //-----------------------------------------------------
+    handlePromote: function(event){
+        var todoId = event.target.getAttribute('name');
+        $.get("/promote/"+todoId, function (result) {
+            this.setState({
+                todos: JSON.parse(result)
+            });
+        }.bind(this));
+    },
+
+    //-----------------------------------------------------
+    handleDemote: function(event){
+        var todoId = event.target.getAttribute('name');
+        $.get("/demote/"+todoId, function (result) {
             this.setState({
                 todos: JSON.parse(result)
             });
@@ -40,9 +81,16 @@ var Main = React.createClass({
     render: function(){
         if(this.state){
             return (
-                <div>
+                <div style={{backgroundColor:'#FFFFFF'}}>
                     <Header sendTodo={this.sendTodo}/>
-                    <Todos todos={this.state.todos} handleRemove={this.handleRemove}/>
+                    <Todos
+                        todos={this.state.todos}
+                        handleRemove={this.handleRemove}
+                        handleUnRemove={this.handleUnRemove}
+                        handleRealRemove={this.handleRealRemove}
+                        handlePromote={this.handlePromote}
+                        handleDemote={this.handleDemote}
+                    />
                 </div>
             )
         }else{
